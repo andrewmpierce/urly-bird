@@ -21,10 +21,10 @@ class Click(models.Model):
         Click.data[user] = time
 
 
-class Click_Stats(models.Model):
+class Stats(models.Model):
     reader = models.ForeignKey(User)
     click = models.ForeignKey(Click)
     timestamp = models.DateTimeField()
 
-def __str__(self):
-     return '{} @ {}'.format(self.reader, self.timestamp)
+    def __str__(self):
+        return '{} @ {}'.format(self.reader, self.timestamp)

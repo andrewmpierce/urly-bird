@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, render_to_response
-from .models import Click
+from .models import Click, Stats
 from datetime import datetime
 
 
@@ -19,5 +19,11 @@ def short(request, click_short):
 
 def stats_detail(request, click_short):
     click = Click.objects.get(short=click_short)
-    render_to_response(request, 'urly/stats_detail.html',
-        {'click': click})
+    stats = []
+    for stat in click.stats_set.all():
+        stats.append({'reader':stat.reader,
+                        'timestamp': stat.timestamp})
+                        
+    return render(request, 'urly/stats_detail.html',
+        {'click': click,
+        'stats':stats})
