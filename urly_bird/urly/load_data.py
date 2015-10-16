@@ -1,9 +1,7 @@
 from faker import Faker
-from url.models import Url_User, Click, Accessed
+from .models import Click, Accessed
 from django.contrib.auth.models import User
-
 import random
-import hashids
 
 
 
@@ -12,8 +10,7 @@ def make_user():
     for x in range(100):
         new_user = User(username=fake.user_name(),
                     password='password',
-                    email = fake.email(),
-                    fav_color = 'blue')
+                    email = fake.email())
         new_user.save()
         print(new_user)
 
