@@ -1,10 +1,5 @@
 from faker import Faker
-<<<<<<< HEAD
-
-from .models import Click, Accessed
-=======
 from .models import Click
->>>>>>> master
 from django.contrib.auth.models import User
 import random
 from hashids import Hashids
