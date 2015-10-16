@@ -1,17 +1,14 @@
 from django.contrib import admin
+from models import Click, Accessed
 
 # Register your models here.
-class BirdAdmin(admin.ModelAdmin):
-    pass
-
-
 class ClickAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['author', 'title', 'short', 'orig', 'timestamp']
 
 
-class AccessedAdmin(modelAdmin):
-    pass
+# class AccessedAdmin(modelAdmin):
+#     list_display = ['click', 'reader', 'accessed_timestamp']
 
-admin.site.register(Movie, MovieAdmin)
-admin.site.register(Rater, RaterAdmin)
-admin.site.register(Rating, RatingAdmin)
+
+admin.site.register(Click, ClickAdmin)
+admin.site.register(Accessed, AccessedAdmin)
