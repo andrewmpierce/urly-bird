@@ -11,6 +11,11 @@ class Click(models.Model):
     accessed = models.IntegerField(default=0)
     orig = models.URLField(max_length=50)
     short = models.CharField(max_length=20)
+    data = {}
 
+    
     def __str__(self):
          return '{}'.format(self.short)
+
+    def record(time, user, request):
+        Click.data[user] = time
