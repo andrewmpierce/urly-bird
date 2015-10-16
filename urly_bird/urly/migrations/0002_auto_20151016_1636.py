@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-from django.conf import settings
 
 
 class Migration(migrations.Migration):
@@ -13,8 +12,13 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
+            model_name='accessed',
+            name='accessed_timestamp',
+            field=models.DateTimeField(null=True, blank=True),
+        ),
+        migrations.AlterField(
             model_name='click',
-            name='author',
-            field=models.ForeignKey(related_name='clicks', to=settings.AUTH_USER_MODEL),
+            name='timestamp',
+            field=models.DateTimeField(null=True),
         ),
     ]
