@@ -9,11 +9,14 @@ from django.contrib.auth.models import User
 
 
 class Click(models.Model):
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, related_name="clicks")
     title = models.CharField(max_length=15)
     timestamp = models.DateTimeField()
     orig = models.CharField(max_length=20)
     short = models.CharField(max_length=20)
+
+    def __str__(self):
+         return '{}'.format(self.short)
 
 
 class Accessed(Click):

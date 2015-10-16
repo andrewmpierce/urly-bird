@@ -6,34 +6,41 @@ from hashids import Hashids
 
 
 fake = Faker()
-def make_user():
-    User.objects.all.delete()
+
+def get_data():
+    users = []
+    clicks = []
+    accessed = []
+
+
+
+    User.objects.all().delete()
+    Click.objects.all().delete()
+    Accessed.objects.all().delete()
+
     for x in range(100):
-        new_user = User(username=fake.user_name(),
+        new_user = User.objects.create_user(username=fake.user_name(),
                     password='password',
                     email = fake.email())
         new_user.save()
+        users.append(new_user)
         print(new_user)
 
-
-def make_clicks():
-    Click.objects.all.delete()
     hashids = Hashids(salt="thisissalt")
     for x in range(500):
-        new_click = Click(user=random.choice(User.objects.all(),
+        new_click = Click(author=random.choice(users),
                      title=fake.text(max_nb_chars=15),
                      timestamp= fake.date_time_this_year(),
-                     url = fake.url(),
-                     short = hashids.encode(1, x)))
+                     orig = fake.url(),
+                     short = hashids.encode(x))
         new_click.save()
+        clicks.append(new_click)
         print(new_click)
 
-
-def make_accessed():
-    Accessed.objects.all.delete()
-    for x in range(1000):
-        new_accessed = Accessed(click = random.choice(Click.objects.all(),
-                                url_user= click.user,
-                                new_timstamp= fake.date_time_this_year()))
-        new_accessed.save()
-        print(new_accessed)
+    # for x in range(1000):
+    #     new_accessed = Accessed(click = random.choice(clicks),
+    #                             reader= random.choice(users),
+    #                             accessed_timestamp= fake.date_time_this_year())
+    #     new_accessed.save()
+    #     accessed.append(new_accessed)
+    #     print(new_accessed)
