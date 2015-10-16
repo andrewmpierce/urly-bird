@@ -1,13 +1,9 @@
 from django.contrib import admin
-
-# Register your models here.
-class BirdAdmin(admin.ModelAdmin):
-    pass
+from .models import Click
 
 
 class ClickAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['author', 'title', 'timestamp', 'orig', 'short']
 
 
-class AccessedAdmin(modelAdmin):
-    pass
+admin.site.register(Click, ClickAdmin)
