@@ -21,4 +21,3 @@ class Accessed(Click):
     click = models.OneToOneField(Click)
     reader = models.ForeignKey(User)
     accessed_timestamp = models.DateTimeField()
->>>>>>> 648d8a67bc647904a72794583df4ec8c739c0681

@@ -11,3 +11,7 @@ class ClickAdmin(admin.ModelAdmin):
 
 class AccessedAdmin(modelAdmin):
     pass
+
+admin.site.register(Movie, MovieAdmin)
+admin.site.register(Rater, RaterAdmin)
+admin.site.register(Rating, RatingAdmin)
