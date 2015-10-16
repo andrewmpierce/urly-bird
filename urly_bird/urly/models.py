@@ -13,9 +13,18 @@ class Click(models.Model):
     short = models.CharField(max_length=20)
     data = {}
 
-    
+
     def __str__(self):
          return '{}'.format(self.short)
 
     def record(time, user, request):
         Click.data[user] = time
+
+
+class Click_Stats(models.Model):
+    reader = models.ForeignKey(User)
+    click = models.ForeignKey(Click)
+    timestamp = models.DateTimeField()
+
+def __str__(self):
+     return '{} @ {}'.format(self.reader, self.timestamp)

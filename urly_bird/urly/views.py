@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from .models import Click
 from datetime import datetime
 
@@ -19,5 +19,5 @@ def short(request, click_short):
 
 def stats_detail(request, click_short):
     click = Click.objects.get(short=click_short)
-    render(request, 'urly_bird/templates/urly/stats_detail.html',
+    render_to_response(request, 'urly/stats_detail.html',
         {'click': click})
