@@ -2,11 +2,12 @@ from faker import Faker
 from .models import Click, Accessed
 from django.contrib.auth.models import User
 import random
-
+from hashids import Hashids
 
 
 fake = Faker()
 def make_user():
+    User.objects.all.delete()
     for x in range(100):
         new_user = User(username=fake.user_name(),
                     password='password',
@@ -16,6 +17,7 @@ def make_user():
 
 
 def make_clicks():
+    Click.objects.all.delete()
     hashids = Hashids(salt="thisissalt")
     for x in range(500):
         new_click = Click(user=random.choice(User.objects.all(),
@@ -28,6 +30,7 @@ def make_clicks():
 
 
 def make_accessed():
+    Accessed.objects.all.delete()
     for x in range(1000):
         new_accessed = Accessed(click = random.choice(Click.objects.all(),
                                 url_user= click.user,
