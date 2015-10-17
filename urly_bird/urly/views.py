@@ -7,17 +7,12 @@ from datetime import datetime
 
 
 class IndexView(generic.ListView):
-    template_name = 'template/click_detail.html'
+    template_name = 'template/urly/click_detail.html'
     context_object_name = 'clicks'
     paginate_by = 6
 
     def get_queryset(self):
         return Click.objects.order_by('-timestamp').prefetch_related('user')
-
-
-# def new_url(request):
-#     return HttpResponse("Thank God something shows up!!!!!")
-#
 
 
 def short(request, click_short):

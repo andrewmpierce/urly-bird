@@ -1,8 +1,13 @@
-#{% extends base.html %} {% load bootstrap3 %} {% block clicklist %}
+#{% extends base.html %}
+{% load bootstrap3 %}
+
+{% block clicklist %}
 <h> Short urls by {{ click.author }} </h>
 
 List of urls from newest to oldest here: {% for click in clicks %}
 <p>{{ page.obj.start_index|add:forloop.counter0 }}: <b><a href="{% url 'click_detail' click.user.pk %}">{{ click.user }}</a></b> -- {{ click.short }}
   <small>({{ click.timestamp }})</small>
 </p> }}
-<br> {% endfor %} {# {% bootstrap_pagination clicks pages_to_show=5 %} #} {% endblock %}
+<br> {% endfor %}
+{# {% bootstrap_pagination clicks pages_to_show=5 %} #} 
+{% endblock %}
