@@ -1,0 +1,6 @@
+<h> Stats {{ click.orig }} - {{ click.short }} </h>
+
+  <p> Stats will go here, for now, here all the times that this link was used. </p>
+  {% for stat in stats %}
+  {{ stat.reader }} at {{ stat.timestamp }}<br>
+  {% endfor %}

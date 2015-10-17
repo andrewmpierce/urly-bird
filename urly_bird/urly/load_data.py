@@ -1,5 +1,5 @@
 from faker import Faker
-from .models import Click
+from .models import Click, Stats
 from django.contrib.auth.models import User
 import random
 from hashids import Hashids
@@ -10,12 +10,10 @@ fake = Faker()
 def get_data():
     users = []
     clicks = []
-    accessed = []
-
-
 
     User.objects.all().delete()
     Click.objects.all().delete()
+    Stats.objects.all().delete()
 
     for x in range(100):
         new_user = User.objects.create_user(username=fake.user_name(),
@@ -35,3 +33,10 @@ def get_data():
         new_click.save()
         clicks.append(new_click)
         print(new_click)
+
+    for x in range(5000):
+        new_stat = Stats(click = random.choice(clicks),
+                               reader = random.choice(users),
+                               timestamp = fake.date_time_this_month())
+        new_stat.save()
+        print(new_stat)
