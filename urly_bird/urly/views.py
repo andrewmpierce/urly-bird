@@ -1,6 +1,10 @@
-from django.shortcuts import render, redirect, render_to_response
+from django.shortcuts import render, redirect, render_to_response, HttpResponse
 from .models import Click, Stats
 from datetime import datetime
+from django.utils import timezone
+from datetime import timedelta
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 
 # Create your views here.
