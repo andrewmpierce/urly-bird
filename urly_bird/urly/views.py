@@ -9,37 +9,15 @@ from datetime import datetime
 class IndexView(generic.ListView):
     template_name = 'template/click_detail.html'
     context_object_name = 'clicks'
-    paginate_by=6
+    paginate_by = 6
 
-    def get_query_set(self):
-        return Click.objects.order_by('-timestamp')
-
-
-def new_url(request):
-     return HttpResponse("Thank God something shows up!!!!!")
+    def get_queryset(self):
+        return Click.objects.order_by('-timestamp').prefetch_related('user')
 
 
+# def new_url(request):
+#     return HttpResponse("Thank God something shows up!!!!!")
 #
-# def author_clicks(request):     # can probably just get these with a sort
-#     pass
-#
-
-def click_detail():
-    clicks = clicks.prefetch_related('user')
-
-    paginator = Paginator(clicks, 20)
-            page = request.GET.get('page')
-        try:
-            clicks = paginator.page(page)
-        except PageNotAnInteger:
-            # If page number is not an integer, gotot first page
-            clicks = paginator.page(1)
-        except EmptyPage:
-            # If page number is out of range, give last page
-            clicks = paginator.page(paginator.num_pages)
-        return render(request,
-                      'urly/click_detail.html'),
-                      {'clicks': clicks}
 
 
 def short(request, click_short):
@@ -64,3 +42,27 @@ def stats_detail(request, click_short):
     return render(request, 'urly/stats_detail.html',
         {'click': click,
         'stats':stats})
+
+
+
+#
+# def author_clicks(request):     # can probably just get these with a sort
+#     pass
+#
+#
+# def click_detail(request, ):
+#     clicks = clicks.prefetch_related('user')
+#
+#     paginator = Paginator(clicks, 20)
+#     page = request.GET.get('page')
+#     try:
+#         clicks = paginator.page(page)
+#     except PageNotAnInteger:
+#         # If page number is not an integer, goto first page
+#         clicks = paginator.page(1)
+#     except EmptyPage:
+#         # If page number is out of range, give last page
+#         clicks = paginator.page(paginator.num_pages)
+#     return render(request,
+#                   'urly/click_detail.html'),
+#                   {'clicks': clicks}
