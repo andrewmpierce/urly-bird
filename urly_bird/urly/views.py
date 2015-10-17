@@ -8,8 +8,8 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-# Create your views here.
 
+# Create your views here.
 def short(request, click_short):
     click = Click.objects.get(short=click_short)
     click.accessed += 1
@@ -83,9 +83,3 @@ def stats_chart(request, click_pk):
 
 def user_table():
     pass
-
-# @login_required
-# def user_table(request):
-#     clicks = Click.objects.filter(author=request.user)
-#     for click in clicks:
-#
