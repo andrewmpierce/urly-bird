@@ -43,11 +43,6 @@ def short(request, click_short):
         click.save()
     return redirect(click.orig)
 
-def graph():
-    x = [1,2,3,4,5]
-    y = [1,2,3,4,5]
-    plot(x,y)
-    pylab.show()
 
 
 
