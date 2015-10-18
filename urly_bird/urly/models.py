@@ -13,11 +13,3 @@ class Click(models.Model):
 
     def __str__(self):
         return '{}'.format(self.short)
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(Userm related_names='profile')
-    bookmark = models.ForeignKey(Click)
-
-    def __str__(self):
-        return '{}'.format(self.user.username)
