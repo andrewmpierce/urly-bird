@@ -8,12 +8,14 @@ from .models import Click
 urlpatterns = [
         url(r'^login', views.user_login, name='login'),
         url(r'^logout', views.user_logout, name='logout'),
-        url(r'^profile', views.user_profile, name='profile'),
+        url(r'^profile/(?P<username>\w+)', views.user_profile, name='profile'),
         url(r'^stats/(?P<click_short>\w+)$', views.stats_detail, name='stats_detail'),
-        url(r'^list$', ListView.as_view(model=Click, paginate_by=25), name='click_list'),
+        #url(r'^list$', ListView.as_view(model=Click, paginate_by=25), name='click_list'),
+        url(r'^list$', views.list_clicks, name='click_list'),
         url(r'^(?P<click_short>\w+)$', views.short, name='redirect_shorts'),
         url(r'^clicks.png/(?P<click_pk>\d*)?$', views.stats_chart, name="stats_chart"),
-        url(r'^user/(?P<username>\w+)$', views.user_table, name='user_table'),
+        url(r'^user/stats/(?P<username>\w+)$', views.user_table, name='user_table'),
+        #url(r'^list/(?P<username>\w+)$'), views.
         url(r'^$', views.index, name='index')
 
 ]

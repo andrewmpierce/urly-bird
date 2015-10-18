@@ -1,1 +1,14 @@
-<h>This is a profile</h>
+{% extends "base.html" %}
+{% block content %}
+
+{% for click in clicks %}
+    {{ click.orig }}<br />
+    <a href="{% url 'stats_detail' click.short %}">http://127.0.0.1:8000/{{click.short}}</a><br />
+    {{ click.author }}<br />
+    {{ click.timestamp }}<br />
+    <br>
+{% endfor %}
+
+
+
+{% endblock %}

@@ -4,7 +4,7 @@
     <br>
     <br>
 
-    {% for click in clicks %}
+    {% for click in click_set %}
         {{ click.orig }}<br />
         <a href="{% url 'stats_detail' click.short %}">http://127.0.0.1:8000/{{click.short}}</a><br />
         {{ click.author }}<br />

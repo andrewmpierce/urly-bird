@@ -26,7 +26,7 @@ def get_data():
         users.append(new_user)
         print(new_user)
 
-    hashids = Hashids(salt="thisissalt")
+    hashids = Hashids(min_length=6, salt="thisissalt")
     for x in range(500):
         new_click = Click(author=random.choice(users),
                      title=fake.text(max_nb_chars=15),

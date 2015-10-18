@@ -11,6 +11,7 @@ from hashids import Hashids
 import random
 from django.views.generic import ListView
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -46,15 +47,15 @@ def stats_detail(request, click_short):
 def index(request):
     hashids = Hashids(salt="thisissalt")
     if request.method == 'POST':
-        #if request.user.is_authenticated():
-        #author= request.user.username
-        author = User.objects.get(username='diandra.sipes')
-        orig = request.POST['orig']
-        x = random.choice([x for x in range(500)])
-        new_click = Click(author=author, orig=orig,
+        if request.user.is_authenticated():
+            author= request.user
+            orig = request.POST['orig']
+            x = random.choice([x for x in range(500)])
+            new_click = Click(author=author, orig=orig,
                           short = hashids.encode(x),
                           title=orig, timestamp=datetime.now())
-        return render(request,
+            new_click.save()
+            return render(request,
                     'urly/index.html',
                       {'submitted':True,
                       'click':new_click })
@@ -87,6 +88,7 @@ def stats_chart(request, click_pk):
     canvas.print_png(response)
     return response
 
+@login_required
 def user_table(request, username):
     user = User.objects.get(username=username)
     clicks = Click.objects.filter(author=user).all()
@@ -95,24 +97,31 @@ def user_table(request, username):
         'user': user})
 
 
-# def list_clicks(request):
-#     clicks = Click.objects.order_by('-timestamp').all()
-#     paginator = Paginator(clicks, 20)
-#     page = request.GET.get('page')
-#     try:
-#         clicks = paginator.page('page')
-#     except PageNotAnInteger:
-#         clicks = paginator.page(1)
-#     except EmptyPage:
-#          clicks = paginator.page(paginator.num_pages)
-#     return render_to_response('urly/list_clicks.html', {"clicks":clicks})
+def list_clicks(request):
+    clicks = Click.objects.order_by('-timestamp').all()
+    paginator = Paginator(clicks, 20)
+    page = request.GET.get('page')
+    try:
+        clicks = paginator.page('page')
+    except PageNotAnInteger:
+        clicks = paginator.page(1)
+    except EmptyPage:
+         clicks = paginator.page(paginator.num_pages)
+    return render_to_response('urly/click_list.html', {"clicks":clicks})
 
 
-class ClickListView(ListView):
-    model = Click
-    template_name = 'urly/click_list.html'
-    context_object_name = "click_list"
-    paginate_by = 10  
+# class ClickListView(ListView):
+#     model = Click
+#     template_name = 'urly/click_list.html'
+#     context_object_name = "click_list"
+#     paginate_by = 10
+#
+
+# class UserListView(ListView):
+#     model = Click
+#     template_name = 'urly/click_list.html'
+#     context_object_name = "click_list"
+#     paginate_by = 10
 
 
 def user_login(request):
@@ -136,5 +145,8 @@ def user_logout(request):
     return redirect('index')
 
 
-def user_profile(request):
-    return render(request, 'urly/profile.html')
+def user_profile(request, username):
+    user = User.objects.get(username=username)
+    clicks = Click.objects.filter(author=user).all()
+    return render(request, 'urly/profile.html',
+                            {'clicks':clicks})
