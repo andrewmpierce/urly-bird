@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from hashids import Hashids
 import random
 from django.views.generic import ListView
+from django.contrib.auth import authenticate, login
 
 
 
@@ -108,7 +109,32 @@ def user_table(request, username):
 
 
 class ClickListView(ListView):
-    model = Click      # shorthand for setting queryset = models.Car.objects.all()
-    template_name = 'urly/click_list.html'  # optional (the default is app_name/modelNameInLowerCase_list.html; which will look into your templates folder for that path and file)
-    context_object_name = "click_list"    #default is object_list as well as model's_verbose_name_list and/or model's_verbose_name_plural_list, if defined in the model's inner Meta class
-    paginate_by = 10  #and that's it !!
+    model = Click
+    template_name = 'urly/click_list.html'
+    context_object_name = "click_list"
+    paginate_by = 10  
+
+
+def user_login(request):
+    if request.method == 'POST':
+        username= request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user.is_active:
+            login(request, user)
+            return redirect('profile')
+        else:
+            render(request, 'urly/login.html', {'failed':True})
+    return render(request, 'urly/login.html')
+
+def user_logout(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        logout(request, user)
+    return redirect('index')
+
+
+def user_profile(request):
+    return render(request, 'urly/profile.html')

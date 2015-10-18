@@ -4,14 +4,15 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
 
-<center>
-<h> URLY BIRD </h>
-</center>
-<br>
-<h>LOGIN   LOGOUT    HOME </h>
-<br>
-<br>
-
-
-{% block content %}
-{% endblock content %}
+<body class=main>
+  {% if request.user.is_authenticated %}
+    Logged in as {{ user.username|default:"Guest" }} - <a href="{% url 'index' %}"></a>
+    <a href="{% url 'logout' %}">Logout</a> -
+    <a href="{% url 'login'%}?next={{request.path}}">Login</a>
+  {% else %}
+  You aren't logged in! - <a href="{% url 'index' %}">Home</a>
+  <a href="{% url 'login'%}?next={{request.path}}">Login</a>
+  {% endif %}
+    {% block content %}
+    {% endblock %}
+</body>

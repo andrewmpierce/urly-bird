@@ -6,6 +6,9 @@ from .models import Click
 
 
 urlpatterns = [
+        url(r'^login', views.user_login, name='login'),
+        url(r'^logout', views.user_logout, name='logout'),
+        url(r'^profile', views.user_profile, name='profile'),
         url(r'^stats/(?P<click_short>\w+)$', views.stats_detail, name='stats_detail'),
         url(r'^list$', ListView.as_view(model=Click, paginate_by=25), name='click_list'),
         url(r'^(?P<click_short>\w+)$', views.short, name='redirect_shorts'),
