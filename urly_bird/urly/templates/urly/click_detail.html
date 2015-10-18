@@ -2,11 +2,10 @@
 {% load bootstrap3 %}
 
 {% block content %}
-<h> Short urls by author </h>
-
+<h> Insert header here </h>
 
 {% for click in clicks %} {# Each "contact" is a Contact model object. #}
-    </br>
+    </br> {{ click.author }}
     {{ click.title }} -- {{ click.short }} (originally - ) {{ click.orig }} -- {{ click.timestamp }}
 {% endfor %}
 

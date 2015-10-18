@@ -1,5 +1,10 @@
 Django
 fake-factory
 hashids
+<<<<<<< HEAD
 django-bootstrap3
 matplotlib
+=======
+matplotlib
+django-bootstrap3
+>>>>>>> fd668039ef7d1e6b4df1ea950dfb36db721b481d

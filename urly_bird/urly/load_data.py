@@ -10,16 +10,11 @@ import time
 hashids = Hashids()
 fake = Faker()
 
-
 clicks = []
-
-
-
 
 def get_data():
     users = []
     accessed = []
-
 
     User.objects.all().delete()
     Click.objects.all().delete()

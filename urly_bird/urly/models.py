@@ -1,6 +1,8 @@
 from django.db import models
 
 from django.contrib.auth.models import User
+from matplotlib import pylab
+from pylab import *
 # Create your models here.
 
 
@@ -16,9 +18,6 @@ class Click(models.Model):
 
     def __str__(self):
          return '{}'.format(self.short)
-
-    def record(time, user, request):
-        Click.data[user] = time
 
 
 class Stats(models.Model):
