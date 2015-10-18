@@ -13,17 +13,7 @@ fake = Faker()
 
 clicks = []
 
-def new_short_url():
-    hashids = Hashids(min_length=6, salt="thisissalt")
-    user_click = Click(author=user,
-                      title=fake.text(max_nb_chars=15),
-                      timestamp=datetime.now(),
-                      orig = fake.url(),
-                      short = hashids.encode(x))
 
-    user_click.save()
-    clicks.append(user_click)
-    print(user_click)
 
 
 def get_data():

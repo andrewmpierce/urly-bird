@@ -1,15 +1,34 @@
-#{% extends base.html %}
+{% extends 'base.html' %}
 {% load bootstrap3 %}
 
-{% block clicklist %}
-<h> Short urls by {{ click.author }} </h>
+{% block content %}
+<h> Short urls by author </h>
 
-List of urls from newest to oldest here:
-{% for click in clicks %}
-<p>{{ page.obj.start_index|add:forloop.counter0 }}: <b><a href="{% url 'click_detail' click.user.pk %}">{{ click.user }}</a></b> -- {{ click.short }}
-  <small>({{ click.timestamp }})</small>
-</p> }}
-<br>
+
+{% for click in clicks %} {# Each "contact" is a Contact model object. #}
+    </br>
+    {{ click.title }} -- {{ click.short }} (originally - ) {{ click.orig }} -- {{ click.timestamp }}
 {% endfor %}
-{% bootstrap_pagination page.obj pages_to_show=5 %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if clicks.has_previous %}
+            <a href="?page={{ clicks.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ clicks.number }} of {{ clicks.paginator.num_pages }}.
+        </span>
+
+        {% if clicks.has_next %}
+            <a href="?page={{ clicks.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
 {% endblock %}
+
+
+
+
+{# <a href="{% url 'click_detail' click.author.pk %}">{{ click.author }}</a></b> -- {{ click.short }}
+  <small>({{ click.timestamp }})</small> #}

@@ -1,3 +1,5 @@
 Django
 fake-factory
 hashids
+django-bootstrap3
+matplotlib
