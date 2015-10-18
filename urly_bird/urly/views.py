@@ -12,5 +12,12 @@ class HomePage(TemplateView):
 class LoginPage(TemplateView):
     template_name = 'urly/login.html'
 
-class RegisterPage(TemplateView):
-    template_name = 'urly/register.html'
+class register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form is.valid():
+            user = form.save()
+            user = authenticate (username = user.username,
+                                 password = request.POST('password'))
+            login(request, user)
+            return redirect('home' )
