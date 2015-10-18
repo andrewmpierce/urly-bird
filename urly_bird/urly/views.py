@@ -32,12 +32,12 @@ def short(request, click_short):
     click = Click.objects.get(short=click_short)
     click.accessed += 1
     if request.user.is_authenticated():
-        new_stat = Stat(reader = request.user,
+        new_stat = Stats(reader = request.user,
                         click = Click.objects.get(short=click_short),
                         timestamp = datetime.now())
         new_stat.save()
     else:
-        new_stat = Stat(reader = "Anonymous",
+        new_stat = Stats(reader = "Anonymous",
                         click = Click.objects.get(short=click_short),
                         timestamp = datetime.now())
         new_stat.save()

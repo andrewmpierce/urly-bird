@@ -1,18 +1,5 @@
 {% extends "base.html" %}
 
-<<<<<<< HEAD
-  <p> Stats will go here, for now, here all the times that this link was used. </p>
-  <div>
-  </div>
-  {% for stat in stats_list %}
-  {{ stat.reader }} at {{ stat.timestamp }}<br>
-  {% endfor %}
-
-
-<img src="{% url "stats_chart" click.pk %}">
-  {{ day_counts }}
-=======
-
 {% block content %}
 
 
@@ -25,4 +12,3 @@
   <img src="{% url "stats_chart" click.pk %}">
 
 {% endblock %}
->>>>>>> stats
