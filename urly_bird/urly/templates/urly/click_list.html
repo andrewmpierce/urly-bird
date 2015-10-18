@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <br>
+    <br>
+
+    {% for click in click_list %}
+        {{ click.orig }}<br />
+        <a href="{% url 'stats_detail' click.short %}">http://127.0.0.1:8000/{{click.short}}</a><br />
+        {{ click.author }}<br />
+        {{ click.timestamp }}<br />
+        <br>
+    {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if clicks.has_previous %}
+                <a href="?page={{ clicks.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ clicks.number }} of {{ clicks.paginator.num_pages }}.
+            </span>
+
+            {% if clicks.has_next %}
+                <a href="?page={{ clicks.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+
+    {% endblock %}
