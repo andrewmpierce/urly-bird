@@ -1,11 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+{{ user.username }}
+<br>
 <table>
     <tr>
-{% for person in people %}
-        <td>{{ person }}</td>
-    {% if not forloop.last and forloop.counter == 3 or forloop.counter == 6 %}
+<tr>
+<td>Full URL</td>
+<td>Short Form</td>
+<td>Number of Clicks</td>
+<td>Stats</td>
+</tr>
+{% for click in clicks %}
+<tr>
+  <td>{{ click.orig }}</td>
+  <td>{{ click.short }}</td>
+  <td>{{ click.stats_set.count }}</td>
+  <td><a href="{% url 'stats_detail' click.short %}"> Link to Stats</a> </td>
     </tr>
     <tr>
-    {% endif %}
 {% endfor %}
     </tr>
 </table>
+{% endblock %}

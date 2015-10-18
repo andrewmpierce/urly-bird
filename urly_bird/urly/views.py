@@ -6,6 +6,8 @@ from datetime import timedelta
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.models import User
+
 
 
 
@@ -24,21 +26,6 @@ def short(request, click_short):
                         timestamp = datetime.now())
         new_stat.save()
     return redirect(click.orig)
-
-
-def list_clicks(request):
-    clicks = Click.objects.order_by('-timestamp').all()
-    paginator = Paginator(clicks, 20)
-    page = request.GET.get('page')
-    try:
-        clicks = paginator.page('page')
-    except PageNotAnInteger:
-        clicks = paginator.page(1)
-    except EmptyPage:
-         clicks = paginator.page(paginator.num_pages)
-    return render_to_response('urly/list_clicks.html', {"clicks":clicks})
-
-
 
 
 def stats_detail(request, click_short):
@@ -67,12 +54,9 @@ def stats_chart(request, click_pk):
     for x in day_counts:
         x_vals.append(x[0])
         y_vals.append(x[1])
-    fig = plt.figure()
+    fig = plt.figure(figsize=(10,4))
     #fig.patch.set_alpha(0)
     plt.plot(x_vals,y_vals)
-    xmin = 1
-    xmax = 31
-    xmin, xmax = plt.xlim()
     plt.title("Popularity of Bookmark for the Previous Month")
     plt.xlabel("Day of the Month")
     plt.ylabel("Number of Clicks")
@@ -81,5 +65,9 @@ def stats_chart(request, click_pk):
     canvas.print_png(response)
     return response
 
-def user_table():
-    pass
+def user_table(request, username):
+    user = User.objects.get(username=username)
+    clicks = Click.objects.filter(author=user).all()
+    return render(request, 'urly/user_table.html',
+        {'clicks':clicks,
+        'user': user})
