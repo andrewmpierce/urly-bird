@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<head>
+  <title>Profile</title>
+</head>
+<body>
+  {% if user.is_authenticated %}
+  <li><a href ="{% url 'home_page' user.username %}">Home</a></li>
+  <li>You are signed in, {{user.username}}.</li>
+  <li><a href ="{% url 'add_bookmark' %}">Add a new bookmark</a></li>
+  <li><a href ="{% url 'edit_bookmark' %}">Edit an existing bookmark</a></li>
+  <li><a href ="{% url 'bookmarks' %}">Most recent bookmarks</a></li>
+
+  {% else %}
+    <li><a href="{% url 'login' %}">Login</a></li>
+    <li><a href="{% url 'register' %}">Register</a></li>
+    <li><a href="{% url 'bookmarks' %}">Most recent bookmarks</a></li>
+  {% endif %}
+  {% block content %}
+  {% endblock %}
+</body>
+</html>

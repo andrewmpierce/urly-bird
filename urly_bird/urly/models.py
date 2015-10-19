@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 # Create your models here.
 
 
@@ -13,3 +14,8 @@ class Click(models.Model):
 
     def __str__(self):
         return '{}'.format(self.short)
+
+    def get_absolute_url(self):
+        return reverse('click-detail', kwargs={'pk': self.pk})
+
+    
