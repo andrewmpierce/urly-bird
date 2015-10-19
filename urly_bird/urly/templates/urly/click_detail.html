@@ -1,12 +1,27 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load bootstrap3 %}
 
 {% block content %}
-<h> Insert header here </h>
+<h3> Bookmark Detail Page </h3>
 
-{% for click in clicks %} {# Each "contact" is a Contact model object. #}
-    </br> {{ click.author }}
-    {{ click.title }} -- {{ click.short }} (originally - ) {{ click.orig }} -- {{ click.timestamp }}
+<table>
+  <tr>
+    <td>Author</td>
+    <td>Title</td>
+    <td>Short url</td>
+    <td>Long url</td>
+    <td>Creation Date</td>
+  </tr>
+{% for click in clicks %} {# Each "click" is a Click model object. #}
+<tr>
+<tr>
+  <td>{{ click.author }}&nbsp;</td>
+  <td>{{ click.title }}&nbsp;</td>
+  <td>{{ click.short }}&nbsp;</td>
+  <td>{{ click.orig }}&nbsp;</td>
+  <td>{{ click.timestamp }}</td>
+</tr>
+<tr>
 {% endfor %}
 
 <div class="pagination">
@@ -20,14 +35,8 @@
         </span>
 
         {% if clicks.has_next %}
-            <a href="?page={{ clicks.next_page_number }}">next</a>
+            <a href="?page={{ clicks.next_page_number }}">Next</a>
         {% endif %}
     </span>
 </div>
 {% endblock %}
-
-
-
-
-{# <a href="{% url 'click_detail' click.author.pk %}">{{ click.author }}</a></b> -- {{ click.short }}
-  <small>({{ click.timestamp }})</small> #}

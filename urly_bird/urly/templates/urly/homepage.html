@@ -1,18 +1,21 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load bootstrap3 %}
 
+
 {% block content %}
-Welcome to Urly Bird! <br>
+<h2>Welcome to Urly Bird!</h2><br>
+<img src="https://usadultliteracy.files.wordpress.com/2013/05/earlybird1.jpg" alt="Urly Bird" style="width:200px;height:228px;">
 
 <form>
   {% csrf_token %}
-  Please enter a url to shorten:<br>
+  <h3>Enter a url to shorten:</h3><br>
   <input type="text" name="url">
   <input type="submit" value="Submit">
 </form>
-  <br>
+<br>
 {% if submitted %}
-<p>Your shortened url is: http://127.0.0.1:8000/{{ click.short}}</p>
+  <p>Your shortened url is: http://127.0.0.1:8000/{{ click.short }}</p>
 {% endif %}
+</body>
 
 {% endblock %}
