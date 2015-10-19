@@ -10,10 +10,12 @@
     <a href="{% url 'logout' %}">Logout</a> -
     <a href="{% url 'login'%}?next={{request.path}}">Login</a>-
     <a href="{% url "index" %}">Home</a>-
-    <a href="{% url "click_list"%}">All bookmarks</a>
+    <a href="{% url "click_list"%}">All bookmarks</a>-
+    <a href="{% url 'user_register' %}?next={{request.path}}">Register</a>
+
   {% else %}
   You aren't logged in! - <a href="{% url 'index' %}">Home</a>
-  <a href="{% url 'register' %}">Register</a>
+  <a href="{% url 'user_register' %}?next={{request.path}}">Register</a>
   <a href="{% url 'login'%}?next={{request.path}}">Login</a><br><br>
   {% endif %}
     {% block content %}

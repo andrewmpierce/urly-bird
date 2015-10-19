@@ -31,7 +31,7 @@ def short(request, click_short):
     click = Click.objects.get(short=click_short)
     click.accessed += 1
     if request.user.is_authenticated():
-        new_stat = Stat(reader = request.user,
+        new_stat = Stats(reader = request.user,
                         click = Click.objects.get(short=click_short),
                         timestamp = datetime.now())
         new_stat.save()
@@ -189,4 +189,4 @@ def user_register(request):
                              password=password)
         login(request, user)
         return redirect('index')
-    return render(request, 'users/register.html')
+    return render(request, 'urly/register.html')
