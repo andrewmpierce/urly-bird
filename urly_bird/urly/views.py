@@ -19,7 +19,7 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            user = authenticate(username=user.username, password = user.password)
+            user = authenticate(username=user.username, password=user.password)
             login(request,user)
             return redirect('home_page', request.user.username)
     else:

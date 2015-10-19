@@ -11,6 +11,8 @@ hashids = Hashids()
 fake = Faker()
 clicks = []
 
+clicks = []
+
 def get_data():
     users = []
     accessed = []
@@ -22,7 +24,6 @@ def get_data():
     for x in range(100):
         new_user = User.objects.create_user(username=fake.user_name(),
                                             password='password',)
-
         new_user.save()
         users.append(new_user)
         print(new_user)
