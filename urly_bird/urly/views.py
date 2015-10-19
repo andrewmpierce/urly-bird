@@ -40,7 +40,6 @@ class ClickDelete(DeleteView):
     success_url = reverse_lazy('click-list')
 
 
-
 def short(request, click_short):
     click = Click.objects.get(short=click_short)
     click.accessed += 1

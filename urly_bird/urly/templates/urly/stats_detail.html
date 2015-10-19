@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<h> Stats {{ click.orig }} - http://127.0.0.1:8000/{{ click.short }} </h>
+
+  <p> Log of Bookmark usage: </p>
+  {% for stat in stats_list %}
+  {{ stat.reader }} at {{ stat.timestamp }}<br>
+  {% endfor %}
+  <img src="{% url "stats_chart" click.pk %}">
+
+{% endblock %}

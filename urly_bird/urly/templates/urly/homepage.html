@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+Welcome to Urly Bird! <br>
+
+<form>
+  {% csrf_token %}
+  Please enter a url to shorten:<br>
+  <input type="text" name="url">
+  <input type="submit" value="Submit">
+</form>
+  <br>
+{% if submitted %}
+<p>Your shortened url is: http://127.0.0.1:8000/{{ click.short}}</p>
+{% endif %}
+
+{% endblock %}

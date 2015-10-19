@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+{{ user.username }}
+<br>
+<table>
+    <tr>
+<tr>
+<td>Full URL</td>
+<td>Short Form</td>
+<td>Number of Clicks</td>
+<td>Stats</td>
+</tr>
+{% for click in clicks %}
+<tr>
+  <td>{{ click.orig }}</td>
+  <td>{{ click.short }}</td>
+  <td>{{ click.stats_set.count }}</td>
+  <td><a href="{% url 'stats_detail' click.short %}"> Link to Stats</a> </td>
+    </tr>
+    <tr>
+{% endfor %}
+    </tr>
+</table>
+{% endblock %}

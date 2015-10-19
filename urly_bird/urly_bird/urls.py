@@ -13,6 +13,8 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+
+
 from django.conf.urls import include, url
 from django.contrib import admin
 from urly.views import ClickCreate, ClickUpdate, ClickDelete
@@ -25,4 +27,5 @@ urlpatterns = [
     url(r'click/add/$', ClickCreate.as_view(), name='click_add'),
     url(r'click/(?P<pk>[0-9]+)/$', ClickUpdate.as_view(), name='click_update'),
     url(r'click/(?P<pk>[0-9]+)/delete/$', ClickDelete.as_view(), name='click_delete'),
+    url(r'', include('urly.urls')),
 ]

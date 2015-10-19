@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+<h> Insert header here </h>
+
+{% for click in clicks %} {# Each "contact" is a Contact model object. #}
+    </br> {{ click.author }}
+    {{ click.title }} -- {{ click.short }} (originally - ) {{ click.orig }} -- {{ click.timestamp }}
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if clicks.has_previous %}
+            <a href="?page={{ clicks.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ clicks.number }} of {{ clicks.paginator.num_pages }}.
+        </span>
+
+        {% if clicks.has_next %}
+            <a href="?page={{ clicks.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
+
+
+
+
+{# <a href="{% url 'click_detail' click.author.pk %}">{{ click.author }}</a></b> -- {{ click.short }}
+  <small>({{ click.timestamp }})</small> #}
