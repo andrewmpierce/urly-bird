@@ -1,0 +1,5 @@
+Django
+fake-factory
+hashids
+matplotlib
+django-bootstrap3
