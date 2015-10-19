@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, render_to_response, HttpResponse
+from django.shortcuts import render, redirect, render_to_response, HttpResponse, HttpResponseRedirect
 from .models import Click, Stats
 from datetime import datetime
 from django.utils import timezone
@@ -9,14 +9,24 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
 from hashids import Hashids
 import random
+from django.core.urlresolvers import reverse
 from django.views.generic import ListView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.forms import ModelForm
+
+
 
 
 
 
 # Create your views here.
+
+class ClickForm(ModelForm):
+    class Meta:
+        model = Click
+        fields = ['title', 'short']
+
 def short(request, click_short):
     click = Click.objects.get(short=click_short)
     click.accessed += 1
@@ -31,6 +41,21 @@ def short(request, click_short):
                         timestamp = datetime.now())
         new_stat.save()
     return redirect(click.orig)
+
+def click_delete(request, click_pk):
+    click = Click.objects.get(pk=click_pk)
+    if request.method=='POST':
+        click.delete()
+        return HttpResponseRedirect(reverse('profile', kwargs={'username': request.user.username}))
+    return render(request, 'urly/click_delete.html', {'object': click})
+
+def click_edit(request, click_pk):
+    click = Click.objects.get(pk=click_pk)
+    form = ClickForm(request.POST or None, instance=click)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('profile', kwargs={'username': request.user.username}))
+    return render(request, 'urly/click_edit.html', {'form':form})
 
 
 def stats_detail(request, click_short):
@@ -131,7 +156,7 @@ def user_login(request):
         user = authenticate(username=username, password=password)
         if user.is_active:
             login(request, user)
-            return redirect('profile')
+            return HttpResponseRedirect(reverse('profile', kwargs={'username': username}))
         else:
             render(request, 'urly/login.html', {'failed':True})
     return render(request, 'urly/login.html')
@@ -150,3 +175,18 @@ def user_profile(request, username):
     clicks = Click.objects.filter(author=user).all()
     return render(request, 'urly/profile.html',
                             {'clicks':clicks})
+
+def user_register(request):
+    if request.method == 'POST':
+        username= request.POST['username']
+        password = request.POST['password']
+        email = request.POST['email']
+        new_user = User.objects.create_user(username=username,
+                    password=password,
+                    email = email)
+        new_user.save()
+        user = authenticate(username=username,
+                             password=password)
+        login(request, user)
+        return redirect('index')
+    return render(request, 'users/register.html')

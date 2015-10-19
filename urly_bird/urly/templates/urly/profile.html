@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-
+<a href="{% url "user_table" request.user.username %}">User Stats</a>
 {% for click in clicks %}
-    {{ click.orig }}<br />
-    <a href="{% url 'stats_detail' click.short %}">http://127.0.0.1:8000/{{click.short}}</a><br />
+    <br><br>{{ click.orig }}<br />
+    <a href="{% url 'stats_detail' click.short %}">http://127.0.0.1:8000/{{click.short}} Stats</a><br />
     {{ click.author }}<br />
     {{ click.timestamp }}<br />
+    <a href="{% url "click_edit" click.id %}">edit</a>
+    <a href="{% url "click_delete" click.id %}">delete</a>
     <br>
 {% endfor %}
 
